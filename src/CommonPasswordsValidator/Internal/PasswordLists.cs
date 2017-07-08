@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace CommonPasswordsValidator.Internal
 {
-    public static class PasswordLists
+    internal static class PasswordLists
     {
         private const string Prefix = nameof(CommonPasswordsValidator) + ".PasswordLists.";
 
