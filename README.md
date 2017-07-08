@@ -1,4 +1,3 @@
-# CommonPasswordsValidator
 ![CommonPasswordsValidator logo](https://raw.githubusercontent.com/andrewlock/CommonPasswordsValidator/master/logo.png)
 # CommonPasswordsValidator
 
