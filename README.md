@@ -46,7 +46,15 @@ When you install the package, it should be added to your `csproj`. Alternatively
 <PackageReference Include="NetEscapades.CommonPasswordValidator" Version="0.1.0-*" />
 ```
 
-You can add the password validator to you ASP.NET Core Identity configuration using one of the extension methods. 
+You can add the password validator to you ASP.NET Core Identity configuration using one of the `IdentityBuilder` extension methods: 
+
+```csharp
+builder.AddTop100PasswordValidator<ApplicationUser>(); // top 100
+builder.AddTop500PasswordValidator<ApplicationUser>(); // top 500
+builder.AddTop1000PasswordValidator<ApplicationUser>(); // top 1,000
+builder.AddTop10000PasswordValidator<ApplicationUser>(); // top 10,000
+builder.AddTop100000PasswordValidator<ApplicationUser>(); // top 100,000
+```
 
 Extension methods exist for validating wether the password is in the top 
 
