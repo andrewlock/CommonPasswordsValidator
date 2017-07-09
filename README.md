@@ -1,5 +1,5 @@
 ![CommonPasswordsValidator logo](https://raw.githubusercontent.com/andrewlock/CommonPasswordsValidator/master/logo.png)
->*The most popular password, making up nearly 17 percent of the 10 million passwords the company analyzed, was `123456`*
+*The most popular password, making up nearly 17 percent of the 10 million passwords the company analyzed, was `123456`*
 
 # CommonPasswordsValidator
 
@@ -12,9 +12,9 @@ Implementations of [ASP.NET Core Identity](https://docs.microsoft.com/en-us/aspn
 
 ## Why should you care?
 
-Password rules are a pain, and users hate them! Worse than that - even though they make the password mathematically stronger, the real world benefit is questionable.
+Password rules are a pain, and users hate them! Worse than that - even though they make the password mathematically stronger, the real-world benefit is questionable.
 
-> Changing the ones to 'I' does not a strong password make!
+> Changing the ones to 'i's does not a strong password make!
 
 This package lets you relax those rules in favour of pure length, and requiring that passwords are not one of the top 100, top 1000, or even top 100,000  most common passwords.
 
