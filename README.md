@@ -1,4 +1,6 @@
 ![CommonPasswordsValidator logo](https://raw.githubusercontent.com/andrewlock/CommonPasswordsValidator/master/logo.png)
+>*The most popular password, making up nearly 17 percent of the 10 million passwords the company analyzed, was `123456`*
+
 # CommonPasswordsValidator
 
 [![Build status](https://ci.appveyor.com/api/projects/status/mqlpvis18ll4rj6f/branch/master?svg=true)](https://ci.appveyor.com/project/andrewlock/commonpasswordsvalidator/branch/master)
