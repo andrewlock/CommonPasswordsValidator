@@ -33,8 +33,7 @@ namespace CommonPasswordsValidator.Sample
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-                    options.UseLengthOnlyOptions())
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders()
                 .AddTop100000PasswordValidator<ApplicationUser>();

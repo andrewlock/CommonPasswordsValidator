@@ -1,4 +1,5 @@
 ![CommonPasswordsValidator logo](https://raw.githubusercontent.com/andrewlock/CommonPasswordsValidator/master/logo.png)
+
 *The most popular password, making up nearly 17 percent of the 10 million passwords the company analyzed, was `123456`*
 
 # CommonPasswordsValidator
@@ -16,36 +17,14 @@ Password rules are a pain, and users hate them! Worse than that - even though th
 
 > Changing the ones to 'i's does not a strong password make!
 
-This package lets you relax those rules in favour of pure length, and requiring that passwords are not one of the top 100, top 1000, or even top 100,000  most common passwords.
+This package lets you relax those rules, and instead simply require that passwords are not one of the top 100, top 1000, or even top 100,000  most common passwords.
 
-## Background 
+## Quick start
 
-This package is based [on an article by Jeff Attwood](https://blog.codinghorror.com/password-rules-are-bullshit/) about the rules they have decided on for [Discource](https://discourse.org/). 
-
-Instead of requiring a multitude of character types, they demand a _minimum_ of 10 characters and at least 6 unque characters.
-
-More importantly, they require that the password is not one of the most common passwords. 
-
-This package provides a number of validators for the ASP.NET Core Identity system, that you can use in your ASP.NET Core 2.0 apps to check that the password entered is not on a list of the most common passwords. 
-
-
->*NOTE* This package is currently for ASP.NET Core Identity 2.0-preview-2, so requires .NET Core 2.0-preview2 is installed.
-
-## Installing 
-
-Install using the [CommonPasswordsValidator NuGet package](https://www.nuget.org/packages/CommonPasswordsValidator) (currently in beta):
+Install into your project using
 
 ```
-PM> Install-Package CommonPasswordsValidator -Pre
-```
-
-## Usage 
-
-When you install the package, it should be added to your `csproj`. Alternatively, you can add it directly by adding:
-
-
-```xml
-<PackageReference Include="NetEscapades.CommonPasswordValidator" Version="0.1.0-*" />
+dotnet add package CommonPasswordValidator
 ```
 
 You can add the password validator to you ASP.NET Core Identity configuration using one of the `IdentityBuilder` extension methods: 
@@ -58,7 +37,41 @@ builder.AddTop10000PasswordValidator<ApplicationUser>(); // top 10,000
 builder.AddTop100000PasswordValidator<ApplicationUser>(); // top 100,000
 ```
 
-Extension methods exist for validating wether the password is in the top 
+## Background 
+
+This package is based [on an article by Jeff Attwood](https://blog.codinghorror.com/password-rules-are-bullshit/) about the rules they have decided on for [Discource](https://discourse.org/). 
+
+Instead of requiring a multitude of character types, they demand a _minimum_ of 10 characters and at least 6 unque characters.
+
+More importantly, they require that the password is not one of the most common passwords. 
+
+This package provides a number of validators for the ASP.NET Core Identity system, that you can use in your ASP.NET Core 2.0 apps to check that the password entered is not on a list of the most common passwords. 
+
+>*NOTE* This package is currently for ASP.NET Core Identity 2.0-preview-2, so requires .NET Core 2.0-preview2 is installed.
+
+## Installing 
+
+Install using the [CommonPasswordsValidator NuGet package](https://www.nuget.org/packages/CommonPasswordsValidator):
+
+```
+PM> Install-Package CommonPasswordsValidator
+```
+
+or
+
+```
+dotnet add package CommonPasswordValidator
+```
+
+## Usage 
+
+When you install the package, it should be added to your `csproj`. Alternatively, you can add it directly by adding:
+
+```xml
+<PackageReference Include="NetEscapades.CommonPasswordValidator" Version="1.0.0" />
+```
+
+Extension methods exist for validating whether the password is in the top 
 
 * 100 most common of the the 10 million password list
 * 500 most common of the the 10 million password list
@@ -86,7 +99,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-In adition, an extension method exists to quickly remove the character password requirements, and use length requirements only
+In adition, I recommend you update the length requirements, and the required number of unique characters too, e.g:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
@@ -95,10 +108,10 @@ public void ConfigureServices(IServiceCollection services)
         options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
     services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-            options.UseLengthOnlyOptions(  // configure the default options
-                requiredLength: 10,
-                requiredUniqueChars: 6
-            ))
+        {
+            options.Password.RequiredLength = 10;
+            options.Password.RequiredUniqueChars = 6;
+        })
         .AddEntityFrameworkStores<ApplicationDbContext>()
         .AddDefaultTokenProviders()
         .AddTop100000PasswordValidator<ApplicationUser>();
@@ -111,6 +124,8 @@ public void ConfigureServices(IServiceCollection services)
 ```
 
 ## Additional Resources
+* [Creating custom validators in ASP.NET Core](https://andrewlock.net/creating-custom-password-validators-for-asp-net-core-identity-2/)
+
 * [Password Rules Are Bullshit](https://blog.codinghorror.com/password-rules-are-bullshit/)
 * [Source passwords list](https://github.com/danielmiessler/SecLists/tree/master/Passwords)
 * [Introduction to ASP.NET Core Identity](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity)
