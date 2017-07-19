@@ -15,10 +15,10 @@ namespace CommonPasswordsValidator.Internal
         private readonly int _requiredLength;
         private readonly ILogger<PasswordLists> _logger;
 
-        public PasswordLists(IOptions<IdentityOptions> options, ILoggerFactory loggerFactory)
+        public PasswordLists(IOptions<IdentityOptions> options, ILogger<PasswordLists> logger)
         {
             _requiredLength = options.Value.Password.RequiredLength;
-            _logger = loggerFactory.CreateLogger<PasswordLists>();
+            _logger = logger;
             Top100Passwords = new Lazy<HashSet<string>>(() => LoadPasswordList("10_million_password_list_top_100.txt"));
             Top500Passwords = new Lazy<HashSet<string>>(() => LoadPasswordList("10_million_password_list_top_500.txt"));
             Top1000Passwords = new Lazy<HashSet<string>>(() => LoadPasswordList("10_million_password_list_top_1000.txt"));

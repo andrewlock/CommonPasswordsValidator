@@ -13,7 +13,9 @@ namespace CommonPasswordsValidator.Tests
         [Fact]
         public void CanLoadTop100Passwords()
         {
-            var passwordLists = new PasswordLists(MockHelpers.MockOptions().Object);
+            var passwordLists = new PasswordLists(
+                MockHelpers.MockOptions().Object, 
+                MockHelpers.MockILogger<PasswordLists>().Object);
             var passwords = passwordLists.Top100Passwords.Value;
             Assert.Equal(100, passwords.Count);
         }
@@ -21,7 +23,9 @@ namespace CommonPasswordsValidator.Tests
         [Fact]
         public void CanLoadTop500Passwords()
         {
-            var passwordLists = new PasswordLists(MockHelpers.MockOptions().Object);
+            var passwordLists = new PasswordLists(
+                MockHelpers.MockOptions().Object, 
+                MockHelpers.MockILogger<PasswordLists>().Object);
             //Case insensitive, hence not 500
             var passwords = passwordLists.Top500Passwords.Value;
             Assert.Equal(499, passwords.Count);
@@ -30,7 +34,9 @@ namespace CommonPasswordsValidator.Tests
         [Fact]
         public void CanLoadTop1_000Passwords()
         {
-            var passwordLists = new PasswordLists(MockHelpers.MockOptions().Object);
+            var passwordLists = new PasswordLists(
+                MockHelpers.MockOptions().Object, 
+                MockHelpers.MockILogger<PasswordLists>().Object);
             //Case insensitive, hence not 500
             var passwords = passwordLists.Top1000Passwords.Value;
             Assert.Equal(998, passwords.Count);
@@ -39,7 +45,9 @@ namespace CommonPasswordsValidator.Tests
         [Fact]
         public void CanLoadTop10_000Passwords()
         {
-            var passwordLists = new PasswordLists(MockHelpers.MockOptions().Object);
+            var passwordLists = new PasswordLists(
+                MockHelpers.MockOptions().Object, 
+                MockHelpers.MockILogger<PasswordLists>().Object);
             //Case insensitive, hence not 100, 000
             var passwords = passwordLists.Top10000Passwords.Value;
             Assert.Equal(9_913, passwords.Count);
@@ -48,7 +56,9 @@ namespace CommonPasswordsValidator.Tests
         [Fact]
         public void CanLoadTop100_000Passwords()
         {
-            var passwordLists = new PasswordLists(MockHelpers.MockOptions().Object);
+            var passwordLists = new PasswordLists(
+                MockHelpers.MockOptions().Object, 
+                MockHelpers.MockILogger<PasswordLists>().Object);
             //Case insensitive, hence not 100, 000
             var passwords = passwordLists.Top100000Passwords.Value;
             Assert.Equal(96_518, passwords.Count);
@@ -64,7 +74,9 @@ namespace CommonPasswordsValidator.Tests
         [InlineData(11, 0)]
         public void DoesNotLoadPasswordsBelowMinimumLength(int requiredLength, int expectedCount)
         {
-            var passwordLists = new PasswordLists(MockHelpers.MockOptions(requiredLength).Object);
+            var passwordLists = new PasswordLists(
+                MockHelpers.MockOptions(requiredLength).Object, 
+                MockHelpers.MockILogger<PasswordLists>().Object);
             var passwords = passwordLists.Top100Passwords.Value;
             Assert.Equal(expectedCount, passwords.Count);
         }
