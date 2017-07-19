@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using CommonPasswordsValidator.Internal;
 using Microsoft.AspNetCore.Identity.Test;
 using Xunit;
 
@@ -13,7 +14,8 @@ namespace CommonPasswordsValidator.Test
         public async Task ValidateThrowsWithNullTest()
         {
             // Setup
-            var validator = new Top100PasswordValidator<TestUser>();
+            var passwordLists = new PasswordLists(MockHelpers.MockOptions().Object);
+            var validator = new Top100PasswordValidator<TestUser>(passwordLists);
 
             // Act
             // Assert
@@ -27,8 +29,9 @@ namespace CommonPasswordsValidator.Test
         [InlineData("987654321")]
         public async Task FailsIfCommon100(string input)
         {
+            var passwordLists = new PasswordLists(MockHelpers.MockOptions().Object);
             var manager = MockHelpers.TestUserManager<TestUser>();
-            var valid = new Top100PasswordValidator<TestUser>();
+            var valid = new Top100PasswordValidator<TestUser>(passwordLists);
             
             IdentityResultAssert.IsFailure(await valid.ValidateAsync(manager, null, input), _error);
         }
@@ -39,8 +42,9 @@ namespace CommonPasswordsValidator.Test
         [InlineData("blink182")]
         public async Task SuccessIfNotCommon100(string input)
         {
+            var passwordLists = new PasswordLists(MockHelpers.MockOptions().Object);
             var manager = MockHelpers.TestUserManager<TestUser>();
-            var valid = new Top100PasswordValidator<TestUser>();
+            var valid = new Top100PasswordValidator<TestUser>(passwordLists);
             
             IdentityResultAssert.IsSuccess(await valid.ValidateAsync(manager, null, input));
         }
@@ -51,8 +55,9 @@ namespace CommonPasswordsValidator.Test
         [InlineData("blink182")]
         public async Task FailsIfCommon500(string input)
         {
+            var passwordLists = new PasswordLists(MockHelpers.MockOptions().Object);
             var manager = MockHelpers.TestUserManager<TestUser>();
-            var valid = new Top500PasswordValidator<TestUser>();
+            var valid = new Top500PasswordValidator<TestUser>(passwordLists);
             
             IdentityResultAssert.IsFailure(await valid.ValidateAsync(manager, null, input), _error);
         }
@@ -63,8 +68,9 @@ namespace CommonPasswordsValidator.Test
         [InlineData("zxc123")]
         public async Task SuccessIfLessCommonThan500(string input)
         {
+            var passwordLists = new PasswordLists(MockHelpers.MockOptions().Object);
             var manager = MockHelpers.TestUserManager<TestUser>();
-            var valid = new Top500PasswordValidator<TestUser>();
+            var valid = new Top500PasswordValidator<TestUser>(passwordLists);
             
             IdentityResultAssert.IsSuccess(await valid.ValidateAsync(manager, null, input));
         }
@@ -75,8 +81,9 @@ namespace CommonPasswordsValidator.Test
         [InlineData("zxc123")]
         public async Task FailsIfCommon1000(string input)
         {
+            var passwordLists = new PasswordLists(MockHelpers.MockOptions().Object);
             var manager = MockHelpers.TestUserManager<TestUser>();
-            var valid = new Top1000PasswordValidator<TestUser>();
+            var valid = new Top1000PasswordValidator<TestUser>(passwordLists);
             
             IdentityResultAssert.IsFailure(await valid.ValidateAsync(manager, null, input), _error);
         }
@@ -87,8 +94,9 @@ namespace CommonPasswordsValidator.Test
         [InlineData("bubbles1")]
         public async Task SuccessIfLessCommonThan1000(string input)
         {
+            var passwordLists = new PasswordLists(MockHelpers.MockOptions().Object);
             var manager = MockHelpers.TestUserManager<TestUser>();
-            var valid = new Top1000PasswordValidator<TestUser>();
+            var valid = new Top1000PasswordValidator<TestUser>(passwordLists);
             
             IdentityResultAssert.IsSuccess(await valid.ValidateAsync(manager, null, input));
         }
@@ -99,8 +107,9 @@ namespace CommonPasswordsValidator.Test
         [InlineData("bubbles1")]
         public async Task FailsIfCommon10000(string input)
         {
+            var passwordLists = new PasswordLists(MockHelpers.MockOptions().Object);
             var manager = MockHelpers.TestUserManager<TestUser>();
-            var valid = new Top10000PasswordValidator<TestUser>();
+            var valid = new Top10000PasswordValidator<TestUser>(passwordLists);
             
             IdentityResultAssert.IsFailure(await valid.ValidateAsync(manager, null, input), _error);
         }
@@ -111,8 +120,9 @@ namespace CommonPasswordsValidator.Test
         [InlineData("09080908")]
         public async Task SuccessIfLessCommonThan10000(string input)
         {
+            var passwordLists = new PasswordLists(MockHelpers.MockOptions().Object);
             var manager = MockHelpers.TestUserManager<TestUser>();
-            var valid = new Top10000PasswordValidator<TestUser>();
+            var valid = new Top10000PasswordValidator<TestUser>(passwordLists);
             
             IdentityResultAssert.IsSuccess(await valid.ValidateAsync(manager, null, input));
         }
@@ -123,8 +133,9 @@ namespace CommonPasswordsValidator.Test
         [InlineData("09080908")]
         public async Task FailsIfCommon100000(string input)
         {
+            var passwordLists = new PasswordLists(MockHelpers.MockOptions().Object);
             var manager = MockHelpers.TestUserManager<TestUser>();
-            var valid = new Top100000PasswordValidator<TestUser>();
+            var valid = new Top100000PasswordValidator<TestUser>(passwordLists);
             
             IdentityResultAssert.IsFailure(await valid.ValidateAsync(manager, null, input), _error);
         }
@@ -135,8 +146,9 @@ namespace CommonPasswordsValidator.Test
         [InlineData("fSHR^£g")]
         public async Task SuccessIfLessCommonThan100000(string input)
         {
+            var passwordLists = new PasswordLists(MockHelpers.MockOptions().Object);
             var manager = MockHelpers.TestUserManager<TestUser>();
-            var valid = new Top100000PasswordValidator<TestUser>();
+            var valid = new Top100000PasswordValidator<TestUser>(passwordLists);
             
             IdentityResultAssert.IsSuccess(await valid.ValidateAsync(manager, null, input));
         }

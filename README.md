@@ -123,6 +123,10 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
+The package will automatically exclude any passwords that are less than the value specified in `IdentityBuilder.Password.RequiredLength` to reduce the number of passwords it needs to check against. 
+
+> Tip: The most common passwords are short - if you increase the minimum `RequiredLength` to 10 characters, only 2,312 of the top 100,000 most common passwords will be valid!
+
 ## Additional Resources
 * [Creating custom validators in ASP.NET Core](https://andrewlock.net/creating-custom-password-validators-for-asp-net-core-identity-2/)
 

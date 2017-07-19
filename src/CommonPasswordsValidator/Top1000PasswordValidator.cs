@@ -10,7 +10,8 @@ namespace CommonPasswordsValidator
     public class Top1000PasswordValidator<TUser> 
         : CommonPasswordValidator<TUser> where TUser : class
     {
-        ///<inheritdoc />
-        protected override HashSet<string> Passwords {get;} = PasswordLists.Top1000Passwords.Value;
+        public Top1000PasswordValidator(PasswordLists passwords)
+            :base(passwords.Top1000Passwords.Value)
+        { }
     }
 }

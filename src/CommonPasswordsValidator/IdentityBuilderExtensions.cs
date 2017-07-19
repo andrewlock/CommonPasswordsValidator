@@ -1,5 +1,6 @@
 using System;
 using CommonPasswordsValidator;
+using CommonPasswordsValidator.Internal;
 using Microsoft.AspNetCore.Identity;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -14,6 +15,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>The current Microsoft.AspNetCore.Identity.IdentityBuilder instance.</returns>
         public static IdentityBuilder AddTop100PasswordValidator<TUser>(this IdentityBuilder builder) where TUser : class
         {
+            AddPasswordLists(builder);
             return builder.AddPasswordValidator<Top100PasswordValidator<TUser>>();
         }
 
@@ -25,6 +27,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>The current Microsoft.AspNetCore.Identity.IdentityBuilder instance.</returns>
         public static IdentityBuilder AddTop500PasswordValidator<TUser>(this IdentityBuilder builder) where TUser : class
         {
+            AddPasswordLists(builder);
             return builder.AddPasswordValidator<Top500PasswordValidator<TUser>>();
         }
 
@@ -36,6 +39,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>The current Microsoft.AspNetCore.Identity.IdentityBuilder instance.</returns>
         public static IdentityBuilder AddTop1000PasswordValidator<TUser>(this IdentityBuilder builder) where TUser : class
         {
+            AddPasswordLists(builder);
             return builder.AddPasswordValidator<Top1000PasswordValidator<TUser>>();
         }
         
@@ -47,6 +51,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>The current Microsoft.AspNetCore.Identity.IdentityBuilder instance.</returns>
         public static IdentityBuilder AddTop10000PasswordValidator<TUser>(this IdentityBuilder builder) where TUser : class
         {
+            AddPasswordLists(builder);
             return builder.AddPasswordValidator<Top10000PasswordValidator<TUser>>();
         }
         
@@ -58,7 +63,13 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>The current Microsoft.AspNetCore.Identity.IdentityBuilder instance.</returns>
         public static IdentityBuilder AddTop100000PasswordValidator<TUser>(this IdentityBuilder builder) where TUser : class
         {
+            AddPasswordLists(builder);
             return builder.AddPasswordValidator<Top100000PasswordValidator<TUser>>();
+        }
+        
+        private static void AddPasswordLists(IdentityBuilder builder)
+        {
+            builder.Services.AddSingleton<PasswordLists>();
         }
     }
 }

@@ -2,29 +2,34 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Options;
 
 namespace CommonPasswordsValidator.Internal
 {
-    internal static class PasswordLists
+    public class PasswordLists
     {
         private const string Prefix = nameof(CommonPasswordsValidator) + ".PasswordLists.";
 
-        public static readonly Lazy<HashSet<string>> Top100Passwords = 
-            new Lazy<HashSet<string>>(()=> LoadPasswordList("10_million_password_list_top_100.txt"));
+        private readonly int _requiredLength;
 
-        public static readonly Lazy<HashSet<string>> Top500Passwords = 
-            new Lazy<HashSet<string>>(()=> LoadPasswordList("10_million_password_list_top_500.txt"));
+        public PasswordLists(IOptions<IdentityOptions> options)
+        {
+            _requiredLength = options.Value.Password.RequiredLength;
+            Top100Passwords = new Lazy<HashSet<string>>(() => LoadPasswordList("10_million_password_list_top_100.txt"));
+            Top500Passwords = new Lazy<HashSet<string>>(() => LoadPasswordList("10_million_password_list_top_500.txt"));
+            Top1000Passwords = new Lazy<HashSet<string>>(() => LoadPasswordList("10_million_password_list_top_1000.txt"));
+            Top10000Passwords = new Lazy<HashSet<string>>(() => LoadPasswordList("10_million_password_list_top_10000.txt"));
+            Top100000Passwords = new Lazy<HashSet<string>>(() => LoadPasswordList("10_million_password_list_top_100000.txt"));
+        }
 
-        public static readonly Lazy<HashSet<string>> Top1000Passwords = 
-            new Lazy<HashSet<string>>(()=> LoadPasswordList("10_million_password_list_top_1000.txt"));
+        public Lazy<HashSet<string>> Top100Passwords { get; }
+        public Lazy<HashSet<string>> Top500Passwords { get; }
+        public Lazy<HashSet<string>> Top1000Passwords { get; }
+        public Lazy<HashSet<string>> Top10000Passwords { get; }
+        public Lazy<HashSet<string>> Top100000Passwords { get; }
 
-        public static readonly Lazy<HashSet<string>> Top10000Passwords = 
-            new Lazy<HashSet<string>>(()=> LoadPasswordList("10_million_password_list_top_10000.txt"));
-
-        public static readonly Lazy<HashSet<string>> Top100000Passwords = 
-            new Lazy<HashSet<string>>(()=> LoadPasswordList("10_million_password_list_top_100000.txt"));
-        
-        private static HashSet<string> LoadPasswordList(string listName)
+        private HashSet<string> LoadPasswordList(string listName)
         {
             HashSet<string> hashset;
 
@@ -41,11 +46,15 @@ namespace CommonPasswordsValidator.Internal
             return hashset;
         }
 
-        private static IEnumerable<string> GetLines(StreamReader reader)
+        private IEnumerable<string> GetLines(StreamReader reader)
         {
             while (!reader.EndOfStream)
             {
-                yield return reader.ReadLine();
+                var line = reader.ReadLine();
+                if (line.Length >= _requiredLength)
+                {
+                    yield return line;
+                }
             }
         }
     }

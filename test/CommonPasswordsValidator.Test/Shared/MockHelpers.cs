@@ -16,6 +16,15 @@ namespace Microsoft.AspNetCore.Identity.Test
     {
         public static StringBuilder LogMessage = new StringBuilder();
 
+        public static Mock<IOptions<IdentityOptions>> MockOptions(int requiredLength = 1)
+        {
+            var options = new Mock<IOptions<IdentityOptions>>();
+            var idOptions = new IdentityOptions();
+            idOptions.Password.RequiredLength = requiredLength;
+            options.Setup(o => o.Value).Returns(idOptions);
+            return options;
+        }
+
         public static Mock<UserManager<TUser>> MockUserManager<TUser>() where TUser : class
         {
             var store = new Mock<IUserStore<TUser>>();

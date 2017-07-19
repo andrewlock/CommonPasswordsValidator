@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using CommonPasswordsValidator.Internal;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Options;
 
 namespace CommonPasswordsValidator
 {
@@ -9,7 +11,8 @@ namespace CommonPasswordsValidator
     public class Top100000PasswordValidator<TUser> 
         : CommonPasswordValidator<TUser> where TUser : class
     {
-        ///<inheritdoc />
-        protected override HashSet<string> Passwords {get;} = PasswordLists.Top100000Passwords.Value;
+        public Top100000PasswordValidator(PasswordLists passwords)
+            :base(passwords.Top100000Passwords.Value)
+        { }
     }
 }

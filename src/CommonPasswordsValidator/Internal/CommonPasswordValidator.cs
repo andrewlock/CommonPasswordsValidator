@@ -13,10 +13,15 @@ namespace CommonPasswordsValidator
     public abstract class CommonPasswordValidator<TUser> : IPasswordValidator<TUser>
            where TUser : class
     {
+        public CommonPasswordValidator(HashSet<string> passwords)
+        {
+            Passwords = passwords;
+        }
+
         /// <summary>
         /// The collection of common passwords which should not be allowed
         /// </summary>
-        protected abstract HashSet<string> Passwords { get; }
+        protected HashSet<string> Passwords { get; }
 
         ///<inheritdoc />
         public Task<IdentityResult> ValidateAsync(UserManager<TUser> manager,
@@ -24,8 +29,8 @@ namespace CommonPasswordsValidator
                                                   string password)
         {
             if (password == null) { throw new ArgumentNullException(nameof(password)); }
-            if (manager == null) { throw new ArgumentNullException(nameof(manager )); }
-            
+            if (manager == null) { throw new ArgumentNullException(nameof(manager)); }
+
             var result = Passwords.Contains(password)
             ? IdentityResult.Failed(new IdentityError
             {
