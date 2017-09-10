@@ -80,8 +80,7 @@ Task("Test")
                     //     .Append("-xml")
                     //     .Append(artifactsDirectory.Path.CombineWithFilePath(project.GetFilenameWithoutExtension()).FullPath + ".xml"),
                     Configuration = configuration,
-                    NoBuild = true,
-                    ArgumentCustomization  = builder => builder.Append("/p:Version=" + version),
+                    NoBuild = true
                 });
         }
     });
