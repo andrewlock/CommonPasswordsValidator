@@ -4,6 +4,7 @@
 // Target - The task you want to start. Runs the Default task if not specified.
 var target = Argument("Target", "Default");
 var configuration = Argument("Configuration", "Release");
+var version = "1.1.0";
 
 Information("Running target " + target + " in configuration " + configuration);
 
@@ -26,7 +27,7 @@ var isTag = EnvironmentVariable("APPVEYOR_REPO_TAG") != null && EnvironmentVaria
 var revision = isTag ? null : "beta-" +buildNumber.ToString("D4");
 // A directory path to an Artifacts directory.
 var artifactsDirectory = Directory("./artifacts");
- 
+
 // Deletes the contents of the Artifacts folder if it should contain anything from a previous build.
 Task("Clean")
     .Does(() =>
@@ -55,7 +56,7 @@ Task("Restore")
                 solution.ToString(),
                 new DotNetCoreBuildSettings()
                 {
-                    Configuration = configuration
+                    Configuration = configuration,
                 });
         }
     });
@@ -100,7 +101,8 @@ Task("Pack")
                 {
                     Configuration = configuration,
                     OutputDirectory = artifactsDirectory,
-                    VersionSuffix = revision
+                    VersionSuffix = revision,
+                    ArgumentCustomization  = builder => builder.Append("/p:PackageVersion=" + version),
                 });
         }
     });
