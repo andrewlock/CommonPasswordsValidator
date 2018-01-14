@@ -4,7 +4,7 @@
 // Target - The task you want to start. Runs the Default task if not specified.
 var target = Argument("Target", "Default");
 var configuration = Argument("Configuration", "Release");
-var version = "1.1.0";
+var version = "1.2.1";
 
 Information("Running target " + target + " in configuration " + configuration);
 
