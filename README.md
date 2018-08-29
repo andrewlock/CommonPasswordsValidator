@@ -68,7 +68,7 @@ dotnet add package CommonPasswordValidator
 When you install the package, it should be added to your `csproj`. Alternatively, you can add it directly by adding:
 
 ```xml
-<PackageReference Include="NetEscapades.CommonPasswordValidator" Version="1.2.1" />
+<PackageReference Include="NetEscapades.CommonPasswordValidator" Version="1.2.2" />
 ```
 
 Extension methods exist for validating whether the password is in the top 
