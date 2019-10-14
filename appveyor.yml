@@ -1,18 +1,7 @@
 version: '{build}'
+image: Visual Studio 2019
 pull_requests:
   do_not_increment_build_number: true
-environment:
-  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
-  DOTNET_CLI_TELEMETRY_OPTOUT: true
-install:
-  # Download .NET Core 2.0 Preview 2 SDK and add to PATH
-  - ps: $urlCurrent = "https://download.microsoft.com/download/F/A/A/FAAE9280-F410-458E-8819-279C5A68EDCF/dotnet-sdk-2.0.0-preview2-006497-win-x64.zip"
-  - ps: $env:DOTNET_INSTALL_DIR = "$pwd\.dotnetsdk"
-  - ps: mkdir $env:DOTNET_INSTALL_DIR -Force | Out-Null
-  - ps: $tempFileCurrent = [System.IO.Path]::GetTempFileName()
-  - ps: (New-Object System.Net.WebClient).DownloadFile($urlCurrent, $tempFileCurrent)
-  - ps: Add-Type -AssemblyName System.IO.Compression.FileSystem; [System.IO.Compression.ZipFile]::ExtractToDirectory($tempFileCurrent, $env:DOTNET_INSTALL_DIR)
-  - ps: $env:Path = "$env:DOTNET_INSTALL_DIR;$env:Path"  
 branches:
   only:
   - master
@@ -25,8 +14,6 @@ test: off
 artifacts:
 - path: .\artifacts\**\*.nupkg
   name: NuGet
-- path: .\artifacts\**\*.xml
-  name: xUnit Test Results
 deploy:
 - provider: NuGet
   server: https://www.myget.org/F/andrewlock-ci/api/v2/package
