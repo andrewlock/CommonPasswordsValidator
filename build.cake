@@ -4,7 +4,6 @@
 // Target - The task you want to start. Runs the Default task if not specified.
 var target = Argument("Target", "Default");
 var configuration = Argument("Configuration", "Release");
-var version = "1.2.2";
 
 Information("Running target " + target + " in configuration " + configuration);
 
@@ -102,7 +101,7 @@ Task("Pack")
                     Configuration = configuration,
                     OutputDirectory = artifactsDirectory,
                     VersionSuffix = revision,
-                    ArgumentCustomization  = builder => builder.Append("/p:PackageVersion=" + version),
+                    NoBuild = true,
                 });
         }
     });
