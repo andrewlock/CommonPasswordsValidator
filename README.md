@@ -45,9 +45,7 @@ Instead of requiring a multitude of character types, they demand a _minimum_ of 
 
 More importantly, they require that the password is not one of the most common passwords. 
 
-This package provides a number of validators for the ASP.NET Core Identity system, that you can use in your ASP.NET Core 2.0 apps to check that the password entered is not on a list of the most common passwords. 
-
->*NOTE* This package is currently for ASP.NET Core Identity 2.0-preview-2, so requires .NET Core 2.0-preview2 is installed.
+This package provides a number of validators for the ASP.NET Core Identity system, that you can use in your ASP.NET Core 2.x or ASP.NET Core 3.0 apps to check that the password entered is not on a list of the most common passwords. 
 
 ## Installing 
 
@@ -68,7 +66,7 @@ dotnet add package CommonPasswordValidator
 When you install the package, it should be added to your `csproj`. Alternatively, you can add it directly by adding:
 
 ```xml
-<PackageReference Include="NetEscapades.CommonPasswordValidator" Version="1.2.2" />
+<PackageReference Include="NetEscapades.CommonPasswordValidator" Version="1.3.0" />
 ```
 
 Extension methods exist for validating whether the password is in the top 
@@ -99,7 +97,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-In adition, I recommend you update the length requirements, and the required number of unique characters too, e.g:
+In addition, I recommend you update the length requirements, and the required number of unique characters too, e.g:
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
