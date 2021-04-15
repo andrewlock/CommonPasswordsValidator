@@ -39,9 +39,9 @@ builder.AddTop100000PasswordValidator<ApplicationUser>(); // top 100,000
 
 ## Background 
 
-This package is based [on an article by Jeff Attwood](https://blog.codinghorror.com/password-rules-are-bullshit/) about the rules they have decided on for [Discource](https://discourse.org/). 
+This package is based [on an article by Jeff Attwood](https://blog.codinghorror.com/password-rules-are-bullshit/) about the rules they have decided on for [Discourse](https://discourse.org/). 
 
-Instead of requiring a multitude of character types, they demand a _minimum_ of 10 characters and at least 6 unque characters.
+Instead of requiring a multitude of character types, they demand a _minimum_ of 10 characters and at least 6 unique characters.
 
 More importantly, they require that the password is not one of the most common passwords. 
 
