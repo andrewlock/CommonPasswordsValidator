@@ -10,8 +10,8 @@ namespace CommonPasswordsValidator
     public class Top100000PasswordValidator<TUser> 
         : CommonPasswordValidator<TUser> where TUser : class
     {
-        public Top100000PasswordValidator(PasswordLists passwords)
-            :base(passwords.Top100000Passwords.Value)
+        public Top100000PasswordValidator(PasswordLists passwords, IOptions<CommonPasswordValidatorOptions> options)
+            :base(passwords.Top100000Passwords.Value, options)
         { }
     }
 }

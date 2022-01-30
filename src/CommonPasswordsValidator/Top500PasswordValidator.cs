@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CommonPasswordsValidator.Internal;
+using Microsoft.Extensions.Options;
 
 namespace CommonPasswordsValidator
 {
@@ -10,8 +11,8 @@ namespace CommonPasswordsValidator
     public class Top500PasswordValidator<TUser> 
         : CommonPasswordValidator<TUser> where TUser : class
     {
-        public Top500PasswordValidator(PasswordLists passwords)
-            :base(passwords.Top500Passwords.Value)
+        public Top500PasswordValidator(PasswordLists passwords, IOptions<CommonPasswordValidatorOptions> options)
+            :base(passwords.Top500Passwords.Value, options)
         { }
     }
 }

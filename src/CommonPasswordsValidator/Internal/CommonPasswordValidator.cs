@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
+using CommonPasswordsValidator.Internal;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 
 namespace CommonPasswordsValidator
 {
@@ -13,9 +15,12 @@ namespace CommonPasswordsValidator
     public abstract class CommonPasswordValidator<TUser> : IPasswordValidator<TUser>
            where TUser : class
     {
-        public CommonPasswordValidator(HashSet<string> passwords)
+        private readonly string _errorMessage;
+
+        public CommonPasswordValidator(HashSet<string> passwords, IOptions<CommonPasswordValidatorOptions> options)
         {
             Passwords = passwords;
+            _errorMessage = options.Value.ErrorMessage;
         }
 
         /// <summary>
@@ -35,7 +40,7 @@ namespace CommonPasswordsValidator
             ? IdentityResult.Failed(new IdentityError
             {
                 Code = "CommonPassword",
-                Description = "The password you chose is too common."
+                Description = _errorMessage
             })
             : IdentityResult.Success;
 
