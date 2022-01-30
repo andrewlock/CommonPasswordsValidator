@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using CommonPasswordsValidator.Internal;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Options;
 
 namespace CommonPasswordsValidator

@@ -1,6 +1,5 @@
 using System;
 using CommonPasswordsValidator.Internal;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity.Test;
 using Microsoft.Extensions.Options;
 using Moq;
