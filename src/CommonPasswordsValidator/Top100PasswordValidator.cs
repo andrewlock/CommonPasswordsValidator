@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using CommonPasswordsValidator.Internal;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Options;
 
 namespace CommonPasswordsValidator
@@ -12,8 +11,8 @@ namespace CommonPasswordsValidator
     public class Top100PasswordValidator<TUser>
         : CommonPasswordValidator<TUser> where TUser : class
     {
-        public Top100PasswordValidator(PasswordLists passwords)
-            :base(passwords.Top100Passwords.Value)
+        public Top100PasswordValidator(PasswordLists passwords, IOptions<CommonPasswordValidatorOptions> options)
+            :base(passwords.Top100Passwords.Value, options)
         { }
     }
 }

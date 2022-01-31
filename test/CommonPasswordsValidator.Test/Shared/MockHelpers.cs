@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
@@ -92,18 +91,5 @@ namespace Microsoft.AspNetCore.Identity.Test
                 .Returns(Task.FromResult(IdentityResult.Success)).Verifiable();
             return userManager;
         }
-
-        public static RoleManager<TRole> TestRoleManager<TRole>(IRoleStore<TRole> store = null) where TRole : class
-        {
-            store = store ?? new Mock<IRoleStore<TRole>>().Object;
-            var roles = new List<IRoleValidator<TRole>>();
-            roles.Add(new RoleValidator<TRole>());
-            return new AspNetRoleManager<TRole>(store, roles,
-                new UpperInvariantLookupNormalizer(),
-                new IdentityErrorDescriber(),
-                null,
-                null);
-        }
-
     }
 }
