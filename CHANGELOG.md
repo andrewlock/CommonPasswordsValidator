@@ -1,5 +1,11 @@
 # Changelog
 
+## [v1.5.0]
+
+Features:
+
+* Add support for .NET 7 and .NET 8
+
 ## [v1.4.0]
 
 Features:
